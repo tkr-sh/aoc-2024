@@ -1,8 +1,4 @@
 while read p; do
-    echo "==$p=="
-    echo "d = $d"
-
-
     a=($p)
 
     for j in -1 "${!a[@]}"; do
@@ -22,9 +18,6 @@ while read p; do
         s="{print (\$$second - \$$first > 0 ? 1 : 0)}"
 
         initial_diff=`awk "$s" <<< "$p"`
-
-        echo "{print (\$$second - \$$first > 0 ? 1 : 0)}"
-        echo $initial_diff
 
         for i in  "${!a[@]}"; do
             [ $i = $j ] && continue
@@ -55,13 +48,7 @@ while read p; do
         [ $is_valid = 1 ] && break
     done
 
-    if [ $is_valid = 1 ]; then
-        echo "$p" >> uwu.txt
-        echo "$j $i | $p"
-    fi
-
     total=$[total+is_valid]
-    echo ""
 done <big.txt
 
 echo "$total"
