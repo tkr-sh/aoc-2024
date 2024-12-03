@@ -2,7 +2,7 @@
 
 mul()(echo $[$1 * $2])
 
-for match in $(rg -N -o "(mul\(\d+,\d+\))|do\(\)|don't\(\)" big.txt); do
+for match in $(rg -N -o "(mul\(\d+,\d+\))|do\(\)|don't\(\)" big.txt); {
     if [ "$match" = 'do()' ]; then
         mul()(echo $[$1 * $2])
     elif [ "$match" = "don't()" ]; then
@@ -10,6 +10,6 @@ for match in $(rg -N -o "(mul\(\d+,\d+\))|do\(\)|don't\(\)" big.txt); do
     else
         t=$[t + `eval $(tr ',()' ' ' <<< "$match")`]
     fi
-done
+}
 
 echo "$t"
