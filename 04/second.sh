@@ -14,9 +14,10 @@ transpose()(seq 1 $len | xargs -I {} sh -c "echo \"$1\" | sd '(.)' '\\\$1 ' | cu
 for _ in `seq 0 3`; do
 
     oneline=`tr -d '\n' <<< "$m"`
-    for i in `seq 0 $[(len+3)*(len+3)]`; do
+    for i in `seq 0 $[(len)*(len)]`; do
         # echo "${oneline:$i:100}"
-        if echo "${oneline:$i:100}" | rg "^M.S(.{$match_len}).A.(.{$match_len})M.S"; then
+        if echo "${oneline:$i:500}" | rg "^M.S(.{$match_len}).A.(.{$match_len})M.S"; then
+            echo "$t!!!"
             t=$[t+1]
         fi
     done
